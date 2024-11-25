@@ -6,10 +6,10 @@ using namespace std;
 class Singer
 {
 public:
-	Singer() : name("unkown"), id(-1) { id_creator++; }
+	Singer() : name("unkown"), id(-1) {}
 	Singer(string name);
 	Singer(Singer& other);
-	~Singer() { id_creator--; };
+	~Singer() {}
 	string getName();
 	int getId();
 	void addMusic(Music);

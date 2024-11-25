@@ -35,7 +35,7 @@ inline SparseSet<T>::SparseSet()
 	this->n = 0;
 	max_value = MAX;
 	this->capacity = MAX;
-	sparse = new int[max_value+1];
+	sparse = new int[MAX + 1];
 	dense = new Singer[max_value + 1];
 	for (int i = 0; i < max_value; i++)
 	{
@@ -83,12 +83,19 @@ inline void SparseSet<T>::deletation(T node)
 }
 
 template<class T>
-inline void SparseSet<T>::deletation(int id)
+void SparseSet<T>::deletation(int id)
 {
-	int toDel = id;
-	sparse[dense[n - 1].getId()] = sparse[toDel];
-	sparse[dense[toDel].getId()] = -1;
-	dense[sparse[toDel]] = dense[n - 1];
+	
+	if (n != 1)
+	{
+
+		T temp = dense[n - 1];  
+		if (sparse[id]>=0)
+			dense[sparse[id]] = temp;  
+		sparse[temp.getId()] = sparse[id];
+		sparse[dense[id].getId()] = -1;
+	}
+	
 	n--;
 }
 

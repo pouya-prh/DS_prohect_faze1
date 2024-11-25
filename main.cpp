@@ -27,7 +27,7 @@ void Commands(string cmnd)
 	}
 	else if (cmnd == "dels id")
 	{
-		int id;
+		int id = 0;
 		cout << "What is the singer`s id? ";
 		cin >> id;
 		artists.deletation(id);
