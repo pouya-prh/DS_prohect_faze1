@@ -17,7 +17,7 @@ public:
     
      List() : head(nullptr), tail(nullptr) {}
     ~List();
-    void push_back(T value);
+    void push_back(T& value);
     T pop_back();
     void display() ;
     bool empty() const;
@@ -45,7 +45,7 @@ List<T>::~List()
 }
 
 template <class T>
-void List<T>::push_back(T value)
+void List<T>::push_back(T& value)
 {
     Node<T>* newNode = new Node<T>(value);
     if (!head)

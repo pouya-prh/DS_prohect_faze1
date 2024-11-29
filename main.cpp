@@ -68,11 +68,12 @@ void Commands(string cmnd)
 		string musicName, artistname, date, text;
 		cout << "Whats the music name? ";
 		cin >> musicName;
-		cout << endl << " Whats the artist name? ";
+		cout << endl << "Whats the artist name? ";
 		cin >> artistname;
 		cout << endl << "date? ";
 		cin >> date;
 		cout << "Whats the text of music ?" << endl << ">>";
+		cin.clear();
 		cin.ignore();
 		getline(cin, text);
 		artists.addMusic(musicName, artistname, date, text);

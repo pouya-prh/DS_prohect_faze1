@@ -3,12 +3,12 @@
 int Music::id_creator = 0;
 
 
-Music::Music(Music& other)
-{
-	this->id = other.id;
-	this->date = other.date;
-	this->name = other.name;
-}
+//Music::Music(Music& other)
+//{
+//	this->id = other.id;
+//	this->date = other.date;
+//	this->name = other.name;
+//}
 
 string Music::getText()
 {

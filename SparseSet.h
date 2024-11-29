@@ -198,12 +198,12 @@ void SparseSet<T>::delMusic(int musicID, int id)
 template<class T>
 inline void SparseSet<T>::addMusic(string musicName, string artistName, string date, string text)
 {
-	Music music(musicName, text, date);
+	Music music(text, musicName, date);
 	for (int i = 0; i < n; i++)
 	{
 		if (dense[i].getName() == artistName)
 		{
-			dense[i].getMusics().push_back(music);
+			dense[i].addMusic(music);
 			cout << musicName << " seccessfully added to " << artistName << " musics" << endl;
 			return;
 		}

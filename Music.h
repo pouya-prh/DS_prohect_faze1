@@ -6,8 +6,8 @@ using namespace std;
 class Music
 {
 public:
-	Music(string text, string name, string date) : name(name), text(text), date(date), id(id_creator++) {}
-	Music(Music& other);
+	Music(string text, string name, string date) :text(text), name(name), date(date), id(id_creator++) {}
+	//Music(Music& other);
 	string getText();
 	string getDate();
 	string getName();
