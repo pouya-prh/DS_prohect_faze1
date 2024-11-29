@@ -19,8 +19,12 @@ public:
 	int searching(int);
 	void clearing();
 	void showAll();
+	void show(int);
 	T At(int);
 	bool find(string name);
+	void findMusic(string);
+	void delMusic(int, int);
+	void addMusic(string, string, string, string);
 private:
 	int n;
 	int capacity;
@@ -48,7 +52,7 @@ template<class T>
 inline SparseSet<T>::~SparseSet()
 {
 	delete[] sparse;
-	//delete[] dense;
+	delete[] dense;
 }
 
 template<class T>
@@ -89,11 +93,16 @@ void SparseSet<T>::deletation(int id)
 	if (n != 1)
 	{
 
-		T temp = dense[n - 1];  
-		if (sparse[id]>=0)
-			dense[sparse[id]] = temp;  
+		T temp = dense[id];
+		dense[sparse[id]] = temp;
 		sparse[temp.getId()] = sparse[id];
-		sparse[dense[id].getId()] = -1;
+		
+		for (int i = id + 1; i < n ; i++ )
+		{
+			dense[sparse[i - 1]] = dense[sparse[i]];
+			
+		}
+		sparse[id] = -1;
 	}
 	
 	n--;
@@ -102,7 +111,7 @@ void SparseSet<T>::deletation(int id)
 template<class T>
 int SparseSet<T>::searching(int id)
 {
-	if (sparse[id] >= 0)
+	if (sparse[id] > -1)
 		return sparse[id];
 	return -1;
 }
@@ -110,6 +119,16 @@ int SparseSet<T>::searching(int id)
 template<class T>
 inline void SparseSet<T>::clearing()
 {
+	
+	delete[] dense;
+	delete[] sparse;
+
+	dense = new Singer[max_value + 1];
+	for (int i = 0; i < max_value; i++)
+	{
+		sparse[i] = -1;
+
+	}
 	n = 0;
 }
 
@@ -118,11 +137,19 @@ inline void SparseSet<T>::showAll()
 {
 	for (int i = 0; i < n; i++)
 	{
-		cout << dense[i].getName() << " , ";
+		cout << dense[i] << '\n' << "musics: \n";
+		dense[i].getMusics().display();
 	}
+
 	cout << endl;
 }
 
+template<class T>
+inline void SparseSet<T>::show(int index)
+{
+	cout << dense[index];
+	dense[index].getMusics().display();
+}
 template<class T>
 inline T SparseSet<T>::At(int index)
 {
@@ -138,4 +165,50 @@ inline bool SparseSet<T>::find(string name)
 			return true;
 	}
 	return false;
+}
+
+template<class T>
+void SparseSet<T>::findMusic(string name)
+{
+	bool find = false;
+	for (int i = 0; i < n; i++)
+	{
+		find = dense[i].getMusics().findMusic(name);
+		if (find)
+			return;
+	}
+	cout << name << " doesnt exsist!"<<endl;
+}
+
+template<class T>
+void SparseSet<T>::delMusic(int musicID, int id)
+{
+	bool find = false;
+	find = dense[sparse[id]].getMusics().findMusic(musicID);
+	if (find)
+	{
+		dense[sparse[id]].getMusics().del(musicID);
+		cout << musicID << " deleted successfully" << endl;
+		return;
+	}
+	
+	cout << musicID << " doesnt exsist!" << endl;
+}
+
+template<class T>
+inline void SparseSet<T>::addMusic(string musicName, string artistName, string date, string text)
+{
+	Music music(musicName, text, date);
+	for (int i = 0; i < n; i++)
+	{
+		if (dense[i].getName() == artistName)
+		{
+			dense[i].getMusics().push_back(music);
+			cout << musicName << " seccessfully added to " << artistName << " musics" << endl;
+			return;
+		}
+
+	}
+
+	cout << "invalid input!" << endl;
 }

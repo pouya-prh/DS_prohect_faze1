@@ -1,10 +1,5 @@
-#include "Singer.h"
-#include "List.h"
 #include <string>
 #include "SparseSet.h"
-#include "Music.h"
-
-
 
 
 SparseSet<Singer> artists;
@@ -32,6 +27,58 @@ void Commands(string cmnd)
 		cin >> id;
 		artists.deletation(id);
 	}
+	else if (cmnd == "find id")
+	{
+		int id;
+		cout << "Enter id: ";
+		cin >> id;
+		int find = artists.searching(id);
+		if (find >= 0)
+		{
+			artists.show(id);
+		}
+		else {
+			cout << "doesnt found!" << endl;
+		}
+
+	}
+	else if (cmnd == "cls")
+	{
+		artists.clearing();
+	}
+	else if (cmnd == "findm name")
+	{
+		string name;
+		cout << "Whats the music name? ";
+		cin >> name;
+		artists.findMusic(name);
+	}
+	else if (cmnd == "delm")
+	{
+		int artist_id;
+		int music_id;
+		cout << "Whats the artist id ?";
+		cin >> artist_id;
+		cout << "\n Whats the music id ?";
+		cin >> music_id;
+		artists.delMusic(music_id, artist_id);
+	}
+	else if (cmnd == "addms")
+	{
+		string musicName, artistname, date, text;
+		cout << "Whats the music name? ";
+		cin >> musicName;
+		cout << endl << " Whats the artist name? ";
+		cin >> artistname;
+		cout << endl << "date? ";
+		cin >> date;
+		cout << "Whats the text of music ?" << endl << ">>";
+		cin.ignore();
+		getline(cin, text);
+		artists.addMusic(musicName, artistname, date, text);
+
+	}
+
 }
 
 int main()

@@ -9,12 +9,12 @@ public:
 	Singer() : name("unkown"), id(-1) {}
 	Singer(string name);
 	Singer(Singer& other);
-	~Singer() {}
+	~Singer(){}
 	string getName();
 	int getId();
 	void addMusic(Music);
+	List<Music> getMusics();
 	friend ostream& operator<<(ostream& os, const Singer& singer);
-	
 private:
 	List<Music> musics;
 	string name;

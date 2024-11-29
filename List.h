@@ -19,12 +19,16 @@ public:
     ~List();
     void push_back(T value);
     T pop_back();
-    void display() const;
+    void display() ;
     bool empty() const;
     T front() const;
     T last() const;
-    void del(int id);
+    void del(int);
+    void del(string);
     void swap(int index1, int index2);
+    bool findMusic(string);
+    bool findMusic(int);
+   
 };
 
 
@@ -80,7 +84,7 @@ T List<T>::pop_back()
 }
 
 template <class T>
-void List<T>::display() const
+void List<T>::display() 
 {
     Node<T>* current = head;
     while (current)
@@ -145,6 +149,37 @@ inline void List<T>::del(int id)
     }
 }
 
+template<class T>
+inline void List<T>::del(string name)
+{
+    Node<T>* current;
+    current = head;
+    while (current)
+    {
+        if (current->value.getName() == name)
+        {
+            Node<T>* toDelete = current;
+
+            if (current->prev)
+                current->prev->next = current->next;
+            else
+                head = current->next;
+
+            if (current->next)
+                current->next->prev = current->prev;
+            else
+                tail = current->prev;
+
+            current = current->next;
+            delete toDelete;
+        }
+        else
+        {
+            current = current->next;
+        }
+    }
+}
+
 template <class T>
 void List<T>::swap(int index1, int index2)
 {
@@ -164,3 +199,37 @@ void List<T>::swap(int index1, int index2)
     node1->value = node2->value;
     node2->value = temp;
 }
+
+template<class T>
+bool List<T>::findMusic(string name)
+{
+    Node<T>* current = head;
+    while (current)
+    {
+        if (current->value.getName() == name)
+        {
+            cout << current->value;
+            return true;
+        }
+        current = current->next;
+    }
+     return false;
+}
+
+template<class T>
+inline bool List<T>::findMusic(int id)
+{
+    Node<T>* current = head;
+    while (current)
+    {
+        if (current->value.getId() == id)
+        {
+            cout << current->value;
+            return true;
+        }
+        current = current->next;
+    }
+    return false;
+}
+
+

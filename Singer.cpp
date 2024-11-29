@@ -33,11 +33,15 @@ void Singer::addMusic(Music music)
 	musics.push_back(music);
 }
 
+List<Music> Singer::getMusics()
+{
+	return this->musics;
+}
+
 
 ostream& operator<<(ostream& os, const Singer& singer)
 {
-	os << "Singer Name: " << singer.name << ", ID: " << singer.id << "\nMusics: ";
-	singer.musics.display();
+	os << "Singer Name: " << singer.name << ", ID: " << singer.id;
 	return os;
 	
 }

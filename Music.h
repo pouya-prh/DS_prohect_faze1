@@ -6,16 +6,20 @@ using namespace std;
 class Music
 {
 public:
-	Music(string text, string name, int date,int id) : name(name), text(text), date(date) ,id (id) {}
+	Music(string text, string name, string date) : name(name), text(text), date(date), id(id_creator++) {}
 	Music(Music& other);
 	string getText();
-	int getDate();
-	friend ostream& operator<<(ostream& os, const Music& music);
+	string getDate();
+	string getName();
+	int getId();
+	friend ostream& operator<<(ostream&, Music&);
+	
 	
 private:
 	string name;
 	string text;
-	int date;
+	string date;
 	int id;
+	static int id_creator;
 };
 

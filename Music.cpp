@@ -1,5 +1,7 @@
 #include "Music.h"
 
+int Music::id_creator = 0;
+
 
 Music::Music(Music& other)
 {
@@ -19,13 +21,23 @@ string Music::getText()
 	return t;
 }
 
-int Music::getDate()
+string Music::getDate()
 {
 	return date;
 }
 
-ostream& operator<<(ostream& os, const Music& music)
+string Music::getName()
 {
-	os << "Music Name: " << music.name << ", ID: " << music.id << "\nMusics: ";
+	return name;
+}
+
+int Music::getId()
+{
+	return id;
+}
+
+ostream& operator<<(ostream& os, Music& music)
+{
+	os << "Music Name: " << endl << music.name << endl << "ID: " << music.id << "Text:" << music.text << endl;
 	return os;
 }
