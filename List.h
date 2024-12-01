@@ -27,6 +27,7 @@ public:
     void swap(int index1, int index2);
     bool findMusic(string);
     bool findMusic(int);
+    T& find(int);
     void clearing();
     Node<T>* BinarySearch(int,Node<T>&);
     T& search(int);
@@ -38,13 +39,13 @@ public:
 template <class T>
 List<T>::~List()
 {
-    Node<T>* current = head;
+   /* Node<T>* current = head;
     while (current)
     {
         Node<T>* toDelete = current;
         current = current->next;
         delete toDelete;
-    }
+    }*/
 }
 
 template <class T>
@@ -124,8 +125,7 @@ T& List<T>::last() const
 template<class T>
 inline void List<T>::del(int id)
 {
-    Node<T>* current;
-    current = head;
+    Node<T>* current = head;
     while (current)
     {
         if (current->value.getId() == id) 
@@ -150,6 +150,7 @@ inline void List<T>::del(int id)
             current = current->next;
         }
     }
+
 }
 
 template<class T>
@@ -236,6 +237,23 @@ inline bool List<T>::findMusic(int id)
 }
 
 template<class T>
+inline T& List<T>::find(int id)
+{
+
+    Node<T>* current = head;
+    while (current)
+    {
+        if (current->value.getId() == id)
+        {
+            return current->value;
+           
+        }
+        current = current->next;
+    }
+    throw runtime_error("Not found!");
+}
+
+template<class T>
 inline void List<T>::clearing()
 {
     Node<T>* current;
@@ -286,7 +304,7 @@ inline Node<T>* List<T>::BinarySearch(int music_id, Node<T>& root)
         break;
 
     }
-    return nullptr;
+    throw runtime_error("Not found");
 }
 
 template<class T>
@@ -301,7 +319,8 @@ inline T& List<T>::search(int playlist_id)
         }
         current = current->next;
     }
-   // return T();
+    throw runtime_error("Not found");
+   
 }
 
 template<class T>

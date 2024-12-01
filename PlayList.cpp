@@ -6,7 +6,7 @@ PlayList::PlayList(string name)
 {
 	this->id = id_creator++;
 	this->name = name;
-	cout << "playlist seccessfully created\n";
+	cout << "playlist successfully created\n";
 }
 
 PlayList::PlayList(PlayList& playlist)
@@ -32,8 +32,10 @@ void PlayList::AddMusic(Music& music)
 
 void PlayList::DellMusic(int music_id)
 {
+	string musicName = playlist.find(music_id).getName();
 	playlist.del(music_id);
-	//sortedTree.Dell(music_id);
+	cout << musicName << " deleted successfully" << endl;
+
 }
 
 void PlayList::Show()
@@ -45,16 +47,18 @@ void PlayList::Show()
 
 void PlayList::search(int music_id)
 {
-	//cout << sortedTree.BinarySearch(music_id).value;
-	cout << playlist.search(music_id);
-
-}
-
-void PlayList::binarySearch(int id)
-{
-	//cout<<sortedTree.BinarySearch(id).value;
+	try
+	{
+		cout << playlist.search(music_id);
+	}
+	catch (const std::exception&)
+	{
+		cout << "Not found!!!" << endl;
+	}
 	
+
 }
+
 
 int PlayList::getId()
 {

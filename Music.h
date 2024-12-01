@@ -15,6 +15,8 @@ public:
 	int getId();
 	friend ostream& operator<<(ostream&, Music&);
 	Music& operator = (Music&);
+	bool operator > (Music&);
+	void parseDate (string& date, int& day, int& month, int& year);
 	int* buildSuffixArray(const string& text);
 	
 private:

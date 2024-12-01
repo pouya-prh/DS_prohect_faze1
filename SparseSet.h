@@ -66,7 +66,7 @@ void SparseSet<T>::insertion(string name)
 		dense[n] = singer;
 		sparse[t] = n;
 		n++;
-		cout << purple << name <<green<< " seccessfully added:)"<<white<<endl;
+		cout << purple << name <<green<< " successfully added:)"<<white<<endl;
 	}
 	else
 	{
@@ -187,8 +187,9 @@ void SparseSet<T>::delMusic(int musicID, int id)
 	find = dense[sparse[id]].getMusics().findMusic(musicID);
 	if (find)
 	{
-		dense[sparse[id]].getMusics().del(musicID);
-		cout << musicID << " deleted successfully" << endl;
+		string musicName = dense[sparse[id]].find(id).getName();
+		dense[sparse[id]].del(musicID);
+		cout <<musicName<< " deleted successfully" << endl;
 		return;
 	}
 	
@@ -204,7 +205,7 @@ Music& SparseSet<T>::addMusic(string artistName,Music& music)
 		if (dense[i].getName() == artistName)
 		{
 			dense[i].addMusic(music);
-			cout << music.getName() << " seccessfully added to " << artistName << " musics" << endl;
+			cout << music.getName() << " successfully added to " << artistName << " musics" << endl;
 			return music;
 		}
 

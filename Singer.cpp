@@ -35,7 +35,17 @@ void Singer::addMusic(Music music)
 
 List<Music> Singer::getMusics()
 {
-	return this->musics;
+	return musics;
+}
+
+void Singer::del(int id)
+{
+	musics.del(id);
+}
+
+Music Singer::find(int id)
+{
+	return musics.search(id);
 }
 
 

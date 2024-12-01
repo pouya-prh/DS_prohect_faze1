@@ -136,5 +136,5 @@ inline Node<T>& Tree<T>::BinarySearch(int music_id)
 		
 
 	}
-	//return NULL;
+	throw runtime_error("Not found");
 }

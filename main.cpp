@@ -1,7 +1,7 @@
-#include <string>
+﻿#include <string>
 #include "SparseSet.h"
 #include "PlayList.h"
-
+#include "queue.h"
 
 
 void Commands()
@@ -10,6 +10,7 @@ void Commands()
 	List<PlayList> playlists;
 	Tree<PlayList> playlistsTree;
 	List<Music> musics;
+	queue<PlayList> queueOfPlaylists;
 	string cmnd = "";
 	while (true)
 	{
@@ -74,7 +75,7 @@ void Commands()
 			int music_id;
 			cout << "Whats the artist id ?";
 			cin >> artist_id;
-			cout << "\n Whats the music id ?";
+			cout << "\nWhats the music id ?";
 			cin >> music_id;
 			artists.delMusic(music_id, artist_id);
 		}
@@ -91,8 +92,8 @@ void Commands()
 			cin.clear();
 			cin.ignore();
 			getline(cin, text);
-			Music music(text ,musicName,date );
-			artists.addMusic(artistname,music);
+			Music music(text, musicName, date);
+			artists.addMusic(artistname, music);
 			musics.push_back(music);
 
 		}
@@ -103,9 +104,9 @@ void Commands()
 			cin >> name;
 			PlayList playlist(name);
 			Node<PlayList> node(playlist);
-		//	playlists.push_back(playlist);
+			//	playlists.push_back(playlist);
 			playlistsTree.Add(node);
-		
+
 		}
 		else if (cmnd == "addmp")
 		{
@@ -128,6 +129,40 @@ void Commands()
 			playlistsTree.BinarySearch(id).value.Show();
 
 		}
+		else if (cmnd == "searchm")
+		{
+			cout << "Whats the play list id? ";
+			int playlist_id;
+			cin >> playlist_id;
+			cout << "What the music id? ";
+			int music_id;
+			cin >> music_id;
+			playlistsTree.BinarySearch(playlist_id).value.search(music_id);
+		}
+		else if (cmnd == "delmp")
+		{
+			cout << "Whats the playlist id? ";
+			int playlist_id;
+			cin >> playlist_id;
+			cout << "Whats the music id? ";
+			int music_id;
+			cin >> music_id;
+
+			playlistsTree.BinarySearch(playlist_id).value.DellMusic(music_id);
+		}
+		else if (cmnd == "addqp")
+		{
+			cout << "Whats the playlits id? ";
+			int playlist_id;
+			cin >> playlist_id;
+			string playlist_name = playlistsTree.BinarySearch(playlist_id).value.getName();
+			queueOfPlaylists.push_back(playlistsTree.BinarySearch(playlist_id).value);
+			cout << playlist_name << " added to queue successfully" << endl;
+		}
+		else if (cmnd == "pop")
+		{
+			cout  << "first item pop from queue successfully" << endl;
+		}
 	}
 	
 
@@ -138,3 +173,6 @@ int main()
 	Commands();
 	
 }
+
+
+//...ما که میکنیم خب با درد تلاش ولی هیِ! روزگار نامرد یواش

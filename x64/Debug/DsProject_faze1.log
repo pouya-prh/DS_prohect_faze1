@@ -1,5 +1,5 @@
-﻿  PlayList.cpp
-D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\List.h(305,1): warning C4715: 'List<Music>::search': not all control paths return a value
+﻿  main.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\SparseSet.h(215,1): warning C4715: 'SparseSet<Singer>::addMusic': not all control paths return a value
   DsProject_faze1.vcxproj -> D:\visual stdio\Term3\DsProject_faze1\x64\Debug\DsProject_faze1.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

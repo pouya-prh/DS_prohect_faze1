@@ -130,6 +130,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PlayList.h" />
+    <ClInclude Include="queue.h" />
     <ClInclude Include="Singer.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="SparseSet.h" />
@@ -141,6 +142,7 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PlayList.cpp" />
+    <ClCompile Include="queue.cpp" />
     <ClCompile Include="Singer.cpp" />
     <ClCompile Include="SparseSet.cpp" />
     <ClCompile Include="Tree.cpp" />
