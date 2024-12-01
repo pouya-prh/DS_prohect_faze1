@@ -5,7 +5,6 @@
 using namespace std;
 
 
-
 template <class T>
 class List
 {
@@ -18,16 +17,20 @@ public:
      List() : head(nullptr), tail(nullptr) {}
     ~List();
     void push_back(T& value);
-    T pop_back();
+    T& pop_back();
     void display() ;
     bool empty() const;
-    T front() const;
-    T last() const;
+    T& front() const;
+    T& last() const;
     void del(int);
     void del(string);
     void swap(int index1, int index2);
     bool findMusic(string);
     bool findMusic(int);
+    void clearing();
+    Node<T>* BinarySearch(int,Node<T>&);
+    T& search(int);
+    void operator = (List<T>&);
    
 };
 
@@ -48,7 +51,7 @@ template <class T>
 void List<T>::push_back(T& value)
 {
     Node<T>* newNode = new Node<T>(value);
-    if (!head)
+    if (head == nullptr)
     {
         head = tail = newNode;
     }
@@ -61,7 +64,7 @@ void List<T>::push_back(T& value)
 }
 
 template <class T>
-T List<T>::pop_back()
+T& List<T>::pop_back()
 {
     if (!tail)
         throw runtime_error("Cannot pop from an empty list");
@@ -103,7 +106,7 @@ bool List<T>::empty() const
 
 
 template <class T>
-T List<T>::front() const
+T& List<T>::front() const
 {
     if (!head)
         throw runtime_error("List is empty");
@@ -111,7 +114,7 @@ T List<T>::front() const
 }
 
 template <class T>
-T List<T>::last() const
+T& List<T>::last() const
 {
     if (!tail)
         throw runtime_error("List is empty");
@@ -231,5 +234,82 @@ inline bool List<T>::findMusic(int id)
     }
     return false;
 }
+
+template<class T>
+inline void List<T>::clearing()
+{
+    Node<T>* current;
+    current = head;
+    while (current)
+    {
+       
+        Node<T>* toDelete = current;
+
+        if (current->prev)
+            current->prev->next = current->next;
+        else
+            head = current->next;
+
+        if (current->next)
+            current->next->prev = current->prev;
+        else
+            tail = current->prev;
+
+        current = current->next;
+        delete toDelete;
+       
+    }
+    head = nullptr;
+    tail = nullptr;
+}
+
+
+template<class T>
+inline Node<T>* List<T>::BinarySearch(int music_id, Node<T>& root)
+{
+    while (true)
+    {
+        if (music_id == root->value.getId())
+        {
+            return root;
+        }
+        else if (music_id > root->value.getId())
+        {
+            root = root->next;
+            continue;
+        }
+        else 
+        {
+            root = root->prev;
+            continue;
+        }
+        break;
+
+    }
+    return nullptr;
+}
+
+template<class T>
+inline T& List<T>::search(int playlist_id)
+{
+    Node<T>* current = head;
+    while (current)
+    {
+        if (current->value.getId() == playlist_id)
+        {
+            return current->value;
+        }
+        current = current->next;
+    }
+   // return T();
+}
+
+template<class T>
+inline void List<T>::operator=(List<T>& list)
+{
+    this->head = list.head;
+    this->tail = list.tail;
+}
+
 
 

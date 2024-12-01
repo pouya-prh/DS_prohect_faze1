@@ -7,13 +7,15 @@ class Music
 {
 public:
 	Music(string text, string name, string date) :text(text), name(name), date(date), id(id_creator++) {}
+	Music() {}
 	//Music(Music& other);
 	string getText();
 	string getDate();
 	string getName();
 	int getId();
 	friend ostream& operator<<(ostream&, Music&);
-	
+	Music& operator = (Music&);
+	int* buildSuffixArray(const string& text);
 	
 private:
 	string name;

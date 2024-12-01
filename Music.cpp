@@ -13,10 +13,21 @@ int Music::id_creator = 0;
 string Music::getText()
 {
 	string t;
-	for (int i = 0; i < 30; i++)
+	if (text.length() > 30)
 	{
-		t += text[i];
+		for (int i = 0; i < 30; i++)
+		{
+			t += text[i];
+		}
 	}
+	else
+	{
+		for (int i = 0; i < text.length(); i++)
+		{
+			t += text[i];
+		}
+	}
+	
 	t += " ...";
 	return t;
 }
@@ -36,8 +47,22 @@ int Music::getId()
 	return id;
 }
 
+Music& Music::operator=(Music& music)
+{
+	this->name = music.name;
+	this->date = music.date;
+	this->text = music.text;
+	this->id = music.id;
+	return *this;
+}
+
+int* Music::buildSuffixArray(const string& text)
+{
+	return nullptr;
+}
+
 ostream& operator<<(ostream& os, Music& music)
 {
-	os << "Music Name: " << endl << music.name << endl << "ID: " << music.id << "Text:" << music.text << endl;
+	os << "Music Name: " << endl << music.name << endl << "ID: " << music.id<< endl << "Text:" << music.getText() << endl;
 	return os;
 }

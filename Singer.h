@@ -9,7 +9,7 @@ public:
 	Singer() : name("unkown"), id(-1) {}
 	Singer(string name);
 	Singer(Singer& other);
-	~Singer(){}
+	~Singer() { musics.clearing(); }
 	string getName();
 	int getId();
 	void addMusic(Music);
@@ -22,4 +22,8 @@ private:
 	static int id_creator;
 	
 };
+
+
+
+
 

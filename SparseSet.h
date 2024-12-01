@@ -20,11 +20,11 @@ public:
 	void clearing();
 	void showAll();
 	void show(int);
-	T At(int);
+	T& At(int);
 	bool find(string name);
 	void findMusic(string);
 	void delMusic(int, int);
-	void addMusic(string, string, string, string);
+	Music& addMusic(string,Music&);
 private:
 	int n;
 	int capacity;
@@ -151,7 +151,7 @@ inline void SparseSet<T>::show(int index)
 	dense[index].getMusics().display();
 }
 template<class T>
-inline T SparseSet<T>::At(int index)
+inline T& SparseSet<T>::At(int index)
 {
 	return dense[index];
 }
@@ -196,16 +196,16 @@ void SparseSet<T>::delMusic(int musicID, int id)
 }
 
 template<class T>
-inline void SparseSet<T>::addMusic(string musicName, string artistName, string date, string text)
+Music& SparseSet<T>::addMusic(string artistName,Music& music)
 {
-	Music music(text, musicName, date);
+	
 	for (int i = 0; i < n; i++)
 	{
 		if (dense[i].getName() == artistName)
 		{
 			dense[i].addMusic(music);
-			cout << musicName << " seccessfully added to " << artistName << " musics" << endl;
-			return;
+			cout << music.getName() << " seccessfully added to " << artistName << " musics" << endl;
+			return music;
 		}
 
 	}
