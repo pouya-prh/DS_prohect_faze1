@@ -77,6 +77,10 @@ void Commands()
 			cin >> artist_id;
 			cout << "\nWhats the music id ?";
 			cin >> music_id;
+			for (auto& it : playlistsTree)
+			{
+				it.DellMusic(music_id);
+			}
 			artists.delMusic(music_id, artist_id);
 		}
 		else if (cmnd == "addms")
@@ -96,6 +100,18 @@ void Commands()
 			artists.addMusic(artistname, music);
 			musics.push_back(music);
 
+		}
+		else if (cmnd == "search word")
+		{
+			int artist_id, music_id;
+			cout << "Whats the artist id? ";
+			cin >> artist_id;
+			cout << "Whats the music id? ";
+			cin >> music_id;
+			string word;
+			cout << "Whats the pattern? ";
+			cin >> word;
+			artists.At(artist_id).find(music_id).callBinarySearch(word);
 		}
 		else if (cmnd == "addp")
 		{
@@ -163,6 +179,7 @@ void Commands()
 		{
 			cout  << "first item pop from queue successfully" << endl;
 		}
+
 	}
 	
 

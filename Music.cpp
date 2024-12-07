@@ -103,11 +103,149 @@ void Music::parseDate(string& date, int& day, int& month, int& year)
 		++index;
 	}
 }
+bool Music::compareSuffixes( suffix& a,  suffix& b) {
+     char* s1 = a.suff;
+     char* s2 = b.suff;
 
-int* Music::buildSuffixArray(const string& text)
-{
-	return nullptr;
+    while (*s1 != '\0' && *s2 != '\0') 
+	{
+        if (*s1 < *s2) 
+			return true;  
+        if (*s1 > *s2) 
+			return false; 
+        s1++;
+        s2++;
+    }
+
+    return (*s1 == '\0' && *s2 != '\0');
 }
+
+void Music::mergeSort(suffix* suffixes, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+
+        
+        mergeSort(suffixes, left, mid);
+        mergeSort(suffixes, mid + 1, right);
+
+        merge(suffixes, left, mid, right);
+    }
+}
+
+void Music::merge(suffix* suffixes, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+   
+    suffix* leftArray = new suffix[n1];
+    suffix* rightArray = new suffix[n2];
+
+    
+    for (int i = 0; i < n1; i++)
+        leftArray[i] = suffixes[left + i];
+    for (int i = 0; i < n2; i++)
+        rightArray[i] = suffixes[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (compareSuffixes(leftArray[i], rightArray[j])) {
+            suffixes[k] = leftArray[i];
+            i++;
+        }
+        else {
+            suffixes[k] = rightArray[j];
+            j++;
+        }
+        k++;
+    }
+    while (i < n1) {
+        suffixes[k] = leftArray[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        suffixes[k] = rightArray[j];
+        j++;
+        k++;
+    }
+    delete[] leftArray;
+    delete[] rightArray;
+}
+
+int Music::callBinarySearch(string word)
+{
+	int n = word.size();
+	char* w = new char[n+1];
+	for (int i = 0; i < n; i++)
+	{
+		w[i] = word[i];
+	}
+	w[n] = '\0';
+	/*suffix* Sword = new suffix[n];
+	for (int i = 0; i < n; i++) {
+		suffixes[i].index = i;
+		suffixes[i].suff = (w + i);
+	}
+	*/
+	n = this->getText().length();
+	return binarySearch(0, n - 1,n,word);
+}
+
+int Music::binarySearch(int left, int right,int n,string word)
+{
+	int mid = left + (right - left) / 2;
+	
+	if (left > right)
+		return -1;
+	bool flag = true;
+	for (size_t i = 0; i < word.size(); i++)
+	{
+		if (suffixes[mid].suff[i] != word[i])
+		{
+			flag = false;
+			break;
+		}
+	}
+	if (flag)
+		return mid;
+	if (suffixes[mid].suff[0]<word[0])
+	{
+		binarySearch(mid + 1, right,n,word);
+	}
+	else
+	{
+		binarySearch(left, mid - 1, n, word);
+	}
+}
+
+int* Music::makeSuffixArray(char* text, int n) {
+     
+	suffixes = new suffix[n];
+    for (int i = 0; i < n; i++) {
+		suffixes[i].index = i;
+        suffixes[i].suff = (text + i);
+		/*std::cout << "Suffix " << i << ": Index = " << suffixes[i].index
+			<< ", Suffix = " << suffixes[i].suff << std::endl;*/
+    }
+
+    mergeSort(suffixes, 0, n - 1);
+	for (int i = 0; i < n; i++) {
+		cout << "Suffix " << i << ": Index = " << suffixes[i].index
+			<< ", Suffix = " << suffixes[i].suff << std::endl;
+	}
+    int* suffixArr = new int[n];
+	for (int i = 0; i < n; i++) 
+	{
+		suffixArr[i] = suffixes[i].index;
+		//cout << suffixArr[i];
+	}
+		
+
+    delete[] suffixes; 
+    return suffixArr;
+}
+
 
 ostream& operator<<(ostream& os, Music& music)
 {

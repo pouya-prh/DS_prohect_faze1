@@ -9,6 +9,16 @@ public:
 	void Add(Node<T>);
 	void Dell(int);
 	Node<T>& BinarySearch(int);
+	struct Iterator {
+		Node<T>* current;
+		Iterator(Node<T>* node) : current(node) {}
+		T& operator*() { return current->value; }
+		Iterator& operator++() { current = current->next; return *this; }
+		bool operator!=(const Iterator& other) const { return current != other.current; }
+	};
+
+	Iterator begin() { return Iterator(root); }
+	Iterator end() { return Iterator(nullptr); }
 private:
 	friend class List<T>;
 	Node<T>* root;
@@ -18,6 +28,7 @@ template<class T>
 inline Tree<T>::Tree()
 {
 	root = nullptr;
+	//Iterator(root);
 }
 
 template<class T>
