@@ -21,28 +21,33 @@ PlayList::PlayList(PlayList& playlist)
 PlayList::~PlayList()
 {
 	//playlist.clearing();
-	id_creator--;
+	//id_creator--;
 }
 
-void PlayList::AddMusic(Music& music)
+void PlayList::addMusic(Music& music)
 {
 	playlist.push_back(music);
 	//sortedTree.Add(music);
 }
 
-void PlayList::DellMusic(int music_id)
+void PlayList::dellMusic(int music_id)
 {
-	string musicName = playlist.find(music_id).getName();
-	playlist.del(music_id);
-	cout << musicName << " deleted successfully" << endl;
+	try {
+		string musicName = playlist.find(music_id).getName();
+		playlist.del(music_id);
+		cout << musicName << " deleted successfully" << endl;
+	}
+	catch(...){
+		return;
+	}
 
 }
 
-void PlayList::Show()
+void PlayList::show()
 {
 	cout<<"playlist name: " << name << endl;
 	cout << "musics: \n\n\n";
-	playlist.display();
+	playlist.showInDateSortedMode();
 }
 
 void PlayList::search(int music_id)

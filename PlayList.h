@@ -1,5 +1,6 @@
 #pragma once
-#include "tree.h"
+//#include "tree.h"
+#include "List.h"
 class PlayList
 {
 public:
@@ -7,9 +8,9 @@ public:
 	PlayList() {}
 	PlayList(PlayList&);
 	~PlayList();
-	void AddMusic(Music&);
-	void DellMusic(int);
-	void Show();
+	void addMusic(Music&);
+	void dellMusic(int);
+	void show();
 	void search(int);
 	int getId();
 	string getName();

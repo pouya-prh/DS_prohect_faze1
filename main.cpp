@@ -7,8 +7,9 @@
 void Commands()
 {
 	SparseSet<Singer> artists;
+	SparseSet<PlayList> playlistSet;
 	List<PlayList> playlists;
-	Tree<PlayList> playlistsTree;
+	//Tree<PlayList> playlistsTree;
 	List<Music> musics;
 	queue<PlayList> queueOfPlaylists;
 	string cmnd = "";
@@ -28,7 +29,8 @@ void Commands()
 			string name;
 			cout << "what is the singer`s name? ";
 			cin >> name;
-			artists.insertion(name);
+			Singer singer(name);
+			artists.insertion(singer);
 		}
 		else if (cmnd == "show")
 		{
@@ -77,10 +79,11 @@ void Commands()
 			cin >> artist_id;
 			cout << "\nWhats the music id ?";
 			cin >> music_id;
-			for (auto& it : playlistsTree)
+			/*for (auto& it : playlistsTree)
 			{
 				it.DellMusic(music_id);
-			}
+			}*/
+			playlistSet.deleteSpecialMusic(music_id);
 			artists.delMusic(music_id, artist_id);
 		}
 		else if (cmnd == "addms")
@@ -97,7 +100,7 @@ void Commands()
 			cin.ignore();
 			getline(cin, text);
 			Music music(text, musicName, date);
-			artists.addMusic(artistname, music);
+			artists.addMusicWithName(artistname, music);
 			musics.push_back(music);
 
 		}
@@ -111,7 +114,35 @@ void Commands()
 			string word;
 			cout << "Whats the pattern? ";
 			cin >> word;
-			artists.At(artist_id).find(music_id).callBinarySearch(word);
+			int index = artists.At(artist_id).find(music_id).callBinarySearch(word);
+			if ( index >= 0)
+			{
+				cout << word << " starts at index " << index << endl;
+			}
+			else
+			{
+				cout << word << " Not found!" << endl;
+			}
+		}
+		else if (cmnd == "countw")
+		{
+			int artist_id, music_id;
+			cout << "Whats the artist id? ";
+			cin >> artist_id;
+			cout << "Whats the music id? ";
+			cin >> music_id;
+			string word;
+			cout << "Whats the pattern? ";
+			cin >> word;
+			int counter = artists.At(artist_id).find(music_id).callBinarySearch(word, 1);
+			if (counter > 0)
+			{
+				cout << word << " repeated " << counter << " time in text" << endl;
+			}
+			else
+			{
+				cout << word << " Not found!" << endl;
+			}
 		}
 		else if (cmnd == "addp")
 		{
@@ -119,9 +150,10 @@ void Commands()
 			cout << "Whats the playlist name? ";
 			cin >> name;
 			PlayList playlist(name);
-			Node<PlayList> node(playlist);
+			//Node<PlayList> node(playlist);
 			//	playlists.push_back(playlist);
-			playlistsTree.Add(node);
+			//playlistsTree.Add(node);
+			playlistSet.insertion(playlist);
 
 		}
 		else if (cmnd == "addmp")
@@ -134,16 +166,17 @@ void Commands()
 			cin >> playlist_id;
 			Music music = musics.search(music_id);
 			//playlists.search(playlist_id).AddMusic(music);
-			playlistsTree.BinarySearch(playlist_id).value.AddMusic(music);
-			cout << music.getName() << " successfully added to " << playlistsTree.BinarySearch(playlist_id).value.getName() << endl;
+			//playlistsTree.BinarySearch(playlist_id).value.AddMusic(music);
+			//cout << music.getName() << " successfully added to " << playlistsTree.BinarySearch(playlist_id).value.getName() << endl;
+			playlistSet.addMusicWithId(playlist_id, music);
 		}
 		else if (cmnd == "searchp")
 		{
 			cout << "Whats the playlist id? ";
 			int id;
 			cin >> id;
-			playlistsTree.BinarySearch(id).value.Show();
-
+			//playlistsTree.BinarySearch(id).value.Show();
+			playlistSet.At(id).show();
 		}
 		else if (cmnd == "searchm")
 		{
@@ -153,7 +186,8 @@ void Commands()
 			cout << "What the music id? ";
 			int music_id;
 			cin >> music_id;
-			playlistsTree.BinarySearch(playlist_id).value.search(music_id);
+			//playlistsTree.BinarySearch(playlist_id).value.search(music_id);
+			playlistSet.At(playlist_id).search(music_id);
 		}
 		else if (cmnd == "delmp")
 		{
@@ -164,15 +198,24 @@ void Commands()
 			int music_id;
 			cin >> music_id;
 
-			playlistsTree.BinarySearch(playlist_id).value.DellMusic(music_id);
+			//playlistsTree.BinarySearch(playlist_id).value.DellMusic(music_id);
+			playlistSet.At(playlist_id).dellMusic(music_id);
+		}
+		else if (cmnd == "show playlist")
+		{
+			int id;
+			cout << "Whats the playlist id? ";
+			cin >> id;
+			playlistSet.At(id).show();
 		}
 		else if (cmnd == "addqp")
 		{
 			cout << "Whats the playlits id? ";
 			int playlist_id;
 			cin >> playlist_id;
-			string playlist_name = playlistsTree.BinarySearch(playlist_id).value.getName();
-			queueOfPlaylists.push_back(playlistsTree.BinarySearch(playlist_id).value);
+			//string playlist_name = playlistsTree.BinarySearch(playlist_id).value.getName();
+			string playlist_name = playlistSet.At(playlist_id).getName();
+			queueOfPlaylists.push_back(playlistSet.At(playlist_id));
 			cout << playlist_name << " added to queue successfully" << endl;
 		}
 		else if (cmnd == "pop")
@@ -185,10 +228,10 @@ void Commands()
 
 }
 
+
 int main()
 {
 	Commands();
-	
 }
 
 

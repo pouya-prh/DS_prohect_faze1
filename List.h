@@ -11,10 +11,12 @@ class List
 private:
     Node<T>* head;
     Node<T>* tail;
+    int size;
+    T* Arr;
    friend class Node<T>;
 public:
     
-     List() : head(nullptr), tail(nullptr) {}
+     List() : head(nullptr), tail(nullptr) ,size(0){}
     ~List();
     void push_back(T& value);
     T& pop_back();
@@ -31,8 +33,39 @@ public:
     void clearing();
     Node<T>* BinarySearch(int,Node<T>&);
     T& search(int);
+    void showInDateSortedMode();
     void operator = (List<T>&);
-   
+
+    int partition(Music* arr, int low, int high) {
+        Music pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; ++j) {
+            if (pivot > arr[j]) {
+                ++i;
+                Music temp(arr[i]);
+                arr[i] = arr[j];
+                arr[j] = temp;
+                // std::swap(arr[i], arr[j]); // Swap smaller element to the left
+            }
+        }
+        Music temp(arr[i + 1]);
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        //std::swap(arr[i + 1], arr[high]); 
+        return i + 1;
+    }
+
+
+    void quicksort(Music* arr, int low, int high) {
+        if (low < high) {
+            int pivotIndex = partition(arr, low, high);
+            quicksort(arr, low, pivotIndex - 1);
+            quicksort(arr, pivotIndex + 1, high);
+         
+        }
+        
+    }
 };
 
 
@@ -62,6 +95,7 @@ void List<T>::push_back(T& value)
         newNode->prev = tail;
         tail = newNode;
     }
+    size++;
 }
 
 template <class T>
@@ -82,7 +116,7 @@ T& List<T>::pop_back()
         tail = tail->prev;
         tail->next = nullptr;
     }
-
+    size--;
     delete toDelete;
     return value;
 }
@@ -150,6 +184,7 @@ inline void List<T>::del(int id)
             current = current->next;
         }
     }
+    size--;
 
 }
 
@@ -182,6 +217,7 @@ inline void List<T>::del(string name)
             current = current->next;
         }
     }
+    size--;
 }
 
 template <class T>
@@ -277,6 +313,7 @@ inline void List<T>::clearing()
         delete toDelete;
        
     }
+    size = 0;
     head = nullptr;
     tail = nullptr;
 }
@@ -321,6 +358,28 @@ inline T& List<T>::search(int playlist_id)
     }
     throw runtime_error("Not found");
    
+}
+
+template<class T>
+inline void List<T>::showInDateSortedMode()
+{
+    Arr = new T[size];
+    Node<T>* current = head;
+    int i = 0;
+    while (current)
+    {
+        Arr[i] = current->value;
+        current = current->next;
+        i++;
+    }
+
+    quicksort(Arr, 0, size-1);
+
+    for (int i = 0; i < size; i++)
+    {
+        cout << Arr[i];
+    }
+
 }
 
 template<class T>

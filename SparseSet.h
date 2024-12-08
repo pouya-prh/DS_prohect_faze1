@@ -13,8 +13,8 @@ class SparseSet
 public:
 	SparseSet();
 	~SparseSet();
-	void insertion(string);
-	void deletation(T);
+	void insertion(T&);
+	void deletation(T&);
 	void deletation(int);
 	int searching(int);
 	void clearing();
@@ -24,7 +24,10 @@ public:
 	bool find(string name);
 	void findMusic(string);
 	void delMusic(int, int);
-	Music& addMusic(string,Music&);
+	void addMusicWithName(string,Music&);
+	void addMusicWithId(int,Music&);
+	T binarySearch(int, int, T&);
+	void deleteSpecialMusic(int);
 private:
 	int n;
 	int capacity;
@@ -40,7 +43,7 @@ inline SparseSet<T>::SparseSet()
 	max_value = MAX;
 	this->capacity = MAX;
 	sparse = new int[MAX + 1];
-	dense = new Singer[max_value + 1];
+	dense = new T[max_value + 1];
 	for (int i = 0; i < max_value; i++)
 	{
 		sparse[i] = -1;
@@ -56,28 +59,19 @@ inline SparseSet<T>::~SparseSet()
 }
 
 template<class T>
-void SparseSet<T>::insertion(string name)
+void SparseSet<T>::insertion(T& node)
 {
-	Singer singer(name);
 	
-	if (!find(name))
-	{
-		int t = singer.getId();
-		dense[n] = singer;
-		sparse[t] = n;
-		n++;
-		cout << purple << name <<green<< " successfully added:)"<<white<<endl;
-	}
-	else
-	{
-		cout << red<<"Repeated name!" <<white<< endl;
-	}
-
+	int t = node.getId();
+	dense[n] = node;
+	sparse[t] = n;
+	n++;
+	cout << purple << node.getName() <<green<< " successfully added:)"<<white<<endl;
 	
 }
 
 template<class T>
-inline void SparseSet<T>::deletation(T node)
+inline void SparseSet<T>::deletation(T& node)
 {
 	int toDel = node.getId();
 	sparse[dense[n - 1].getId()] = sparse[toDel];
@@ -123,7 +117,7 @@ inline void SparseSet<T>::clearing()
 	delete[] dense;
 	delete[] sparse;
 
-	dense = new Singer[max_value + 1];
+	dense = new T[max_value + 1];
 	for (int i = 0; i < max_value; i++)
 	{
 		sparse[i] = -1;
@@ -153,7 +147,7 @@ inline void SparseSet<T>::show(int index)
 template<class T>
 inline T& SparseSet<T>::At(int index)
 {
-	return dense[index];
+	return dense[sparse[index]];
 }
 
 template<class T>
@@ -188,7 +182,7 @@ void SparseSet<T>::delMusic(int musicID, int id)
 	if (find)
 	{
 		string musicName = dense[sparse[id]].find(id).getName();
-		dense[sparse[id]].del(musicID);
+		dense[sparse[id]].dellMusic(musicID);
 		cout <<musicName<< " deleted successfully" << endl;
 		return;
 	}
@@ -197,19 +191,52 @@ void SparseSet<T>::delMusic(int musicID, int id)
 }
 
 template<class T>
-Music& SparseSet<T>::addMusic(string artistName,Music& music)
+void SparseSet<T>::addMusicWithName(string artistName,Music& music)
 {
 	
 	for (int i = 0; i < n; i++)
 	{
-		if (dense[i].getName() == artistName)
+		if (dense[sparse[i]].getName() == artistName)
 		{
-			dense[i].addMusic(music);
+			dense[sparse[i]].addMusic(music);
 			cout << music.getName() << " successfully added to " << artistName << " musics" << endl;
-			return music;
+			return;
 		}
 
 	}
 
 	cout << "invalid input!" << endl;
+}
+
+template<class T>
+inline void SparseSet<T>::addMusicWithId(int id, Music& music)
+{
+	dense[sparse[id]].addMusic(music);
+	cout << music.getName() << " successfully added to " << dense[sparse[id]].getName() << " musics" << endl;
+	//return music;
+}
+
+template<class T>
+inline T SparseSet<T>::binarySearch(int left, int right, T& p)
+{
+	int mid = left + (left + right) / 2;
+	if (left > right)
+		return dense[mid];
+	if (p.getId() > dense[mid].getId())
+	{
+		binarySearch(mid + 1, right, p);
+	}
+	else
+	{
+		binarySearch(left, mid - 1, p);
+	}
+}
+
+template<class T>
+inline void SparseSet<T>::deleteSpecialMusic(int id)
+{
+	for (int i = 0; i < n; i++)
+	{
+		dense[i].dellMusic(id);
+	}
 }

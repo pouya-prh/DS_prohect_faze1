@@ -36,8 +36,8 @@ public:
 		txt[n] = '\0';
 		makeSuffixArray(txt, n - c);
 	}
-	Music() {}
-	//Music(Music& other);
+	Music() : text(""),name(""),date(""),id(-1) {}
+	Music(Music& other);
 	string getText();
 	string getDate();
 	string getName();
@@ -51,7 +51,8 @@ public:
 	void mergeSort(suffix*, int, int);
 	void merge(suffix* , int , int , int );
 	int binarySearch(int,int, int,string);
-	int callBinarySearch(string);
+	int callBinarySearch(string,int select = 0);
+	int binaryCounter(int, int, int,int&, string);
 	
 private:
 	string name;

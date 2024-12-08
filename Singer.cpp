@@ -38,7 +38,7 @@ List<Music> Singer::getMusics()
 	return musics;
 }
 
-void Singer::del(int id)
+void Singer::dellMusic(int id)
 {
 	musics.del(id);
 }

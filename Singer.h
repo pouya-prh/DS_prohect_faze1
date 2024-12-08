@@ -14,7 +14,7 @@ public:
 	int getId();
 	void addMusic(Music);
 	List<Music> getMusics();
-	void del(int);
+	void dellMusic(int);
 	Music find(int);
 	friend ostream& operator<<(ostream& os, const Singer& singer);
 private:

@@ -1,10 +1,28 @@
-﻿  Music.cpp
+﻿  List.cpp
 D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  (compiling source file 'Music.cpp')
+  (compiling source file 'List.cpp')
   
-D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.cpp(178,8): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.cpp(191,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
-D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.cpp(220,1): warning C4715: 'Music::binarySearch': not all control paths return a value
+  PlayList.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'PlayList.cpp')
+  
+  Singer.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Singer.cpp')
+  
+  SparseSet.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'SparseSet.cpp')
+  
+  Tree.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'Tree.cpp')
+  
+  main.cpp
+D:\visual stdio\Term3\DsProject_faze1\DsProject_faze1\Music.h(19,9): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  (compiling source file 'main.cpp')
+  
+  Generating Code...
   DsProject_faze1.vcxproj -> D:\visual stdio\Term3\DsProject_faze1\x64\Debug\DsProject_faze1.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
